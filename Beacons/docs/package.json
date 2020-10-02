@@ -1,0 +1,19 @@
+{
+  "name": "Beacons",
+  "version": "0.0.1",
+  "description": "A magical journey to explore the wonderfull posibilities of beacons, unicorns and rainbows.",
+  "main": "index.js",
+  "authors": {
+    "name": "Hannes De Baere",
+    "email": "hanndeba2@student.arteveldehs.be"
+  },
+  "repository": "https://github.com/gdmgent-2021-wot/research-Hannesde4/Beacons",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.6.0"
+  }
+}
