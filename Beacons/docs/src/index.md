@@ -1,17 +1,12 @@
 ---
 home: true
 heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: A magical journey to explore the wonderfull posibilities of beacons, unicorns and rainbows.
-actionText: Quick Start →
-actionLink: /guide/
-features:
-- title: Feature 1 Title
-  details: Feature 1 Description
-- title: Feature 2 Title
-  details: Feature 2 Description
-- title: Feature 3 Title
-  details: Feature 3 Description
-footer: Made by Hannes De Baere with ❤️
----
+tagline: A magical journey to explore the wonderfull posibilities of beacons, tangible interfaces, unicorns and rainbows.
 
-test 123
+features:
+- title: Beacons
+  details: Alles wat je altijd al had willen weten over beacons
+- title: Tangible interfaces
+  details: Alles wat je altijd al had willen weten over tangible interfaces
+footer: Made by Hannes De Baere with ❤️ in opdracht van Web of Things
+---
