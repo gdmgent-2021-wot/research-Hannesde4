@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Py game with GPIO input | Beacons &amp; tangible interfaces</title>
+    <meta name="generator" content="VuePress 1.6.0">
+    
+    <meta name="description" content="A magical journey to explore the wonderfull posibilities of beacons, unicorns and rainbows.">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="preload" href="/assets/css/0.styles.e13742ca.css" as="style"><link rel="preload" href="/assets/js/app.d209193e.js" as="script"><link rel="preload" href="/assets/js/2.2a3f5cb0.js" as="script"><link rel="preload" href="/assets/js/15.8888ade4.js" as="script"><link rel="prefetch" href="/assets/js/10.33facc73.js"><link rel="prefetch" href="/assets/js/11.763e33a9.js"><link rel="prefetch" href="/assets/js/12.834a195d.js"><link rel="prefetch" href="/assets/js/13.0e8785d1.js"><link rel="prefetch" href="/assets/js/14.66e456ef.js"><link rel="prefetch" href="/assets/js/16.81febf02.js"><link rel="prefetch" href="/assets/js/17.f6a466f4.js"><link rel="prefetch" href="/assets/js/18.105e67b2.js"><link rel="prefetch" href="/assets/js/19.a5e6a4f2.js"><link rel="prefetch" href="/assets/js/20.79629036.js"><link rel="prefetch" href="/assets/js/21.41bf19af.js"><link rel="prefetch" href="/assets/js/3.b7ff3dd6.js"><link rel="prefetch" href="/assets/js/4.2ad53764.js"><link rel="prefetch" href="/assets/js/5.76ea75ea.js"><link rel="prefetch" href="/assets/js/6.e416f727.js"><link rel="prefetch" href="/assets/js/7.f931c09f.js"><link rel="prefetch" href="/assets/js/8.d28c0c3f.js"><link rel="prefetch" href="/assets/js/9.27944c69.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e13742ca.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Beacons &amp; tangible interfaces</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/code-files/" class="nav-link router-link-active">
+  Code examples
+</a></div><div class="nav-item"><a href="/bronnen/" class="nav-link">
+  Bronnen
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/code-files/" class="nav-link router-link-active">
+  Code examples
+</a></div><div class="nav-item"><a href="/bronnen/" class="nav-link">
+  Bronnen
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Code examples</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/code-files/pygame-basic.html" class="sidebar-link">Py game met keyboard input</a></li><li><a href="/code-files/gpio.html" class="sidebar-link">GPIO input</a></li><li><a href="/code-files/pygame.html" aria-current="page" class="active sidebar-link">Py game with GPIO input</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="py-game-with-gpio-input"><a href="#py-game-with-gpio-input" class="header-anchor">#</a> Py game with GPIO input</h1> <p>Dit is mijn code voorbeeld van de pygame met gewone keyboard input en GPIO input.</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token comment"># import the libraries</span>
+<span class="token keyword">import</span> pygame
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> random
+<span class="token keyword">import</span> RPi<span class="token punctuation">.</span>GPIO <span class="token keyword">as</span> GPIO
+<span class="token keyword">import</span> time
+GPIO<span class="token punctuation">.</span>setmode<span class="token punctuation">(</span>GPIO<span class="token punctuation">.</span>BCM<span class="token punctuation">)</span>
+
+<span class="token comment"># initialize the pygame library</span>
+pygame<span class="token punctuation">.</span>init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># read the GPIO</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>IN<span class="token punctuation">,</span> pull_up_down<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>PUD_DOWN<span class="token punctuation">)</span>
+GPIO<span class="token punctuation">.</span>setup<span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">,</span> GPIO<span class="token punctuation">.</span>IN<span class="token punctuation">,</span> pull_up_down<span class="token operator">=</span>GPIO<span class="token punctuation">.</span>PUD_DOWN<span class="token punctuation">)</span>
+
+<span class="token comment"># set my variables for height and width in pixels</span>
+WIDTH <span class="token operator">=</span> <span class="token number">800</span>
+HEIGHT <span class="token operator">=</span> <span class="token number">600</span>
+SPEED <span class="token operator">=</span> <span class="token number">10</span>
+
+RED <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+BLUE <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">)</span>
+BLACK <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+YELLOW <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+PLAYER_SIZE <span class="token operator">=</span> <span class="token number">50</span>
+PLAYER_POS <span class="token operator">=</span> <span class="token punctuation">[</span>WIDTH<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">,</span> HEIGHT<span class="token operator">-</span><span class="token number">2</span><span class="token operator">*</span>PLAYER_SIZE<span class="token punctuation">]</span>
+
+ENEMY_SIZE <span class="token operator">=</span> <span class="token number">50</span>
+ENEMY_POS <span class="token operator">=</span> <span class="token punctuation">[</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> WIDTH<span class="token operator">-</span>ENEMY_SIZE<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span>
+ENEMY_LIST <span class="token operator">=</span> <span class="token punctuation">[</span>ENEMY_POS<span class="token punctuation">]</span>
+
+
+screen <span class="token operator">=</span> pygame<span class="token punctuation">.</span>display<span class="token punctuation">.</span>set_mode<span class="token punctuation">(</span><span class="token punctuation">(</span>WIDTH<span class="token punctuation">,</span> HEIGHT<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+game_over <span class="token operator">=</span> <span class="token boolean">False</span>
+
+score <span class="token operator">=</span> <span class="token number">0</span>
+
+clock <span class="token operator">=</span> pygame<span class="token punctuation">.</span>time<span class="token punctuation">.</span>Clock<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+myFont <span class="token operator">=</span> pygame<span class="token punctuation">.</span>font<span class="token punctuation">.</span>SysFont<span class="token punctuation">(</span><span class="token string">&quot;monospace&quot;</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">set_level</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">if</span> score <span class="token operator">&lt;</span> <span class="token number">20</span><span class="token punctuation">:</span>
+		SPEED <span class="token operator">=</span> <span class="token number">4</span>
+	<span class="token keyword">else</span><span class="token punctuation">:</span>
+		SPEED <span class="token operator">=</span> score<span class="token operator">/</span><span class="token number">5</span> <span class="token operator">+</span> <span class="token number">1</span>
+	<span class="token keyword">return</span> SPEED
+
+<span class="token keyword">def</span> <span class="token function">drop_enemies</span><span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	delay <span class="token operator">=</span> random<span class="token punctuation">.</span>random<span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token keyword">and</span> delay <span class="token operator">&lt;</span> <span class="token number">0.1</span><span class="token punctuation">:</span>
+		x_pos <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> WIDTH<span class="token operator">-</span>ENEMY_SIZE<span class="token punctuation">)</span>
+		y_pos <span class="token operator">=</span> <span class="token number">0</span>
+		ENEMY_LIST<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">[</span>x_pos<span class="token punctuation">,</span> y_pos<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		
+<span class="token keyword">def</span> <span class="token function">draw_enemies</span><span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">for</span> ENEMY_POS <span class="token keyword">in</span> ENEMY_LIST<span class="token punctuation">:</span>
+		pygame<span class="token punctuation">.</span>draw<span class="token punctuation">.</span>rect<span class="token punctuation">(</span>screen<span class="token punctuation">,</span> BLUE<span class="token punctuation">,</span> <span class="token punctuation">(</span>ENEMY_POS<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ENEMY_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ENEMY_SIZE<span class="token punctuation">,</span> ENEMY_SIZE<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+		
+<span class="token keyword">def</span> <span class="token function">update_enemy_positions</span><span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">,</span> score<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">for</span> idx<span class="token punctuation">,</span> ENEMY_POS <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		<span class="token keyword">if</span> ENEMY_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token number">0</span> <span class="token keyword">and</span> ENEMY_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> HEIGHT<span class="token punctuation">:</span>
+			ENEMY_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+=</span> SPEED
+		<span class="token keyword">else</span><span class="token punctuation">:</span>
+			ENEMY_LIST<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>idx<span class="token punctuation">)</span>
+			score <span class="token operator">+=</span> <span class="token number">1</span>
+	<span class="token keyword">return</span> score
+			
+<span class="token keyword">def</span> <span class="token function">collision_check</span><span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">,</span> PLAYER_POS<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">for</span> ENEMY_POS <span class="token keyword">in</span> ENEMY_LIST<span class="token punctuation">:</span>
+		<span class="token keyword">if</span> detect_collision<span class="token punctuation">(</span>ENEMY_POS<span class="token punctuation">,</span> PLAYER_POS<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token boolean">True</span>
+	<span class="token keyword">return</span> <span class="token boolean">False</span>
+	
+
+<span class="token keyword">def</span> <span class="token function">detect_collision</span><span class="token punctuation">(</span> PLAYER_POS<span class="token punctuation">,</span> ENEMY_POS<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	p_x <span class="token operator">=</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+	p_y <span class="token operator">=</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+	
+	e_x <span class="token operator">=</span> ENEMY_POS<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+	e_y <span class="token operator">=</span> ENEMY_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+	
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>e_x <span class="token operator">&gt;=</span> p_x <span class="token keyword">and</span> e_x <span class="token operator">&lt;</span> <span class="token punctuation">(</span>p_x <span class="token operator">+</span> PLAYER_SIZE<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span>p_x <span class="token operator">&gt;=</span> e_x <span class="token keyword">and</span> p_x  <span class="token operator">&lt;</span> <span class="token punctuation">(</span>e_x <span class="token operator">+</span> ENEMY_SIZE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>e_y <span class="token operator">&gt;=</span> p_y <span class="token keyword">and</span> e_y <span class="token operator">&lt;</span> <span class="token punctuation">(</span>p_y <span class="token operator">+</span> PLAYER_SIZE<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span>p_y <span class="token operator">&gt;=</span> e_y <span class="token keyword">and</span> p_y  <span class="token operator">&lt;</span> <span class="token punctuation">(</span>e_y <span class="token operator">+</span> ENEMY_SIZE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token boolean">True</span>
+	<span class="token keyword">return</span> <span class="token boolean">False</span>
+
+<span class="token comment"># make a while loop that loops as long as the game is running</span>
+<span class="token keyword">while</span> <span class="token keyword">not</span> game_over<span class="token punctuation">:</span>
+	x <span class="token operator">=</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+	y <span class="token operator">=</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+	<span class="token keyword">if</span> GPIO<span class="token punctuation">.</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+		<span class="token keyword">print</span> <span class="token string">&quot;left&quot;</span>
+		x <span class="token operator">-=</span> PLAYER_SIZE
+		time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+	<span class="token keyword">elif</span> GPIO<span class="token punctuation">.</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">:</span>
+		<span class="token keyword">print</span> <span class="token string">&quot;right&quot;</span>
+		x <span class="token operator">+=</span> PLAYER_SIZE
+		time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+	PLAYER_POS <span class="token operator">=</span> <span class="token punctuation">[</span>x<span class="token punctuation">,</span> y<span class="token punctuation">]</span>
+	<span class="token keyword">for</span> event <span class="token keyword">in</span> pygame<span class="token punctuation">.</span>event<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+		
+		<span class="token keyword">if</span> event<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> pygame<span class="token punctuation">.</span>QUIT<span class="token punctuation">:</span>
+			sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+		
+		<span class="token keyword">if</span>  event<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">==</span> pygame<span class="token punctuation">.</span>KEYDOWN<span class="token punctuation">:</span>	
+			x <span class="token operator">=</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+			y <span class="token operator">=</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+			<span class="token keyword">if</span> event<span class="token punctuation">.</span>key <span class="token operator">==</span> pygame<span class="token punctuation">.</span>K_LEFT<span class="token punctuation">:</span>
+				x <span class="token operator">-=</span> PLAYER_SIZE
+			<span class="token keyword">elif</span> event<span class="token punctuation">.</span>key <span class="token operator">==</span> pygame<span class="token punctuation">.</span>K_RIGHT<span class="token punctuation">:</span>
+				x <span class="token operator">+=</span> PLAYER_SIZE
+		PLAYER_POS <span class="token operator">=</span> <span class="token punctuation">[</span>x<span class="token punctuation">,</span> y<span class="token punctuation">]</span>
+	
+	screen<span class="token punctuation">.</span>fill<span class="token punctuation">(</span><span class="token punctuation">(</span>BLACK<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	
+	
+	drop_enemies<span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">)</span>
+	score <span class="token operator">=</span> update_enemy_positions<span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">,</span> score<span class="token punctuation">)</span>
+	SPEED <span class="token operator">=</span> set_level<span class="token punctuation">(</span>score<span class="token punctuation">)</span>
+	
+	text <span class="token operator">=</span> <span class="token string">&quot;Score:&quot;</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span>
+	label <span class="token operator">=</span> myFont<span class="token punctuation">.</span>render<span class="token punctuation">(</span>text<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> YELLOW<span class="token punctuation">)</span>
+	screen<span class="token punctuation">.</span>blit<span class="token punctuation">(</span>label<span class="token punctuation">,</span> <span class="token punctuation">(</span>WIDTH<span class="token operator">-</span><span class="token number">200</span><span class="token punctuation">,</span> HEIGHT<span class="token operator">-</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	
+	<span class="token keyword">if</span> collision_check<span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">,</span> PLAYER_POS<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		game_over <span class="token operator">=</span> <span class="token boolean">True</span>
+		<span class="token keyword">break</span>
+		
+	draw_enemies<span class="token punctuation">(</span>ENEMY_LIST<span class="token punctuation">)</span>
+	
+	pygame<span class="token punctuation">.</span>draw<span class="token punctuation">.</span>rect<span class="token punctuation">(</span> screen<span class="token punctuation">,</span> RED<span class="token punctuation">,</span> <span class="token punctuation">(</span>PLAYER_POS<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> PLAYER_POS<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> PLAYER_SIZE<span class="token punctuation">,</span> PLAYER_SIZE<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+	
+	clock<span class="token punctuation">.</span>tick<span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span>
+
+	pygame<span class="token punctuation">.</span>display<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/code-files/gpio.html" class="prev">
+        GPIO input
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d209193e.js" defer></script><script src="/assets/js/2.2a3f5cb0.js" defer></script><script src="/assets/js/15.8888ade4.js" defer></script>
+  </body>
+</html>

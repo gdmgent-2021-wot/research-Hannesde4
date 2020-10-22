@@ -37,6 +37,14 @@ module.exports = {
         text: 'Guide',
         link: '/guide/',
       },
+      {
+        text: 'Code examples',
+        link: '/code-files/',
+      },
+      {
+        text: 'Bronnen',
+        link: '/bronnen/',
+      },
     ],
     sidebar: {
       '/guide/': [
@@ -47,11 +55,30 @@ module.exports = {
             '',
             'beacons',
             'tangible-interfaces',
-            'bronnen',
           ]
         }
       ],
-    }
+      '/code-files/': [
+        {
+          title: 'Code examples',
+          collapsable: false,
+          children: [
+            'pygame-basic',
+            'gpio',
+            'pygame',
+          ]
+        },
+      ],
+      '/bronnen/': [
+        {
+          title: 'Bronnen',
+          collapsable: false,
+          children: [
+            'bronnen',
+          ]
+        },
+      ]
+    },
   },
 
   /**

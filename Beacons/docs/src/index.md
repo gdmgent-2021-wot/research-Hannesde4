@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: A magical journey to explore the wonderfull posibilities of beacons, tangible interfaces, unicorns and rainbows.
+tagline: A magical journey to explore the wonderful posibilities of beacons, tangible interfaces, unicorns and rainbows.
 
 features:
 - title: Beacons
