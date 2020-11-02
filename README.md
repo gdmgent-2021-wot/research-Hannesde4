@@ -10,6 +10,6 @@ Full documantation can be found on <https://wot-research-project.web.app/>
 
 <!-- blank line -->
 <figure class="video_container">
-    <iframe src="https://player.vimeo.com/video/473035460 width="640" height="361" frameborder="0" allowfullscreen="true"> </iframe>
+    <iframe src="https://player.vimeo.com/video/473035460" width="640" height="361" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
 <!-- blank line -->
